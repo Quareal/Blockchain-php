@@ -1,11 +1,13 @@
 Blockchain-php
 ==============
 JonasMe
-
 jonas@mersholm.dk
-
 Donations are greatly appreciated at : 1E4FU9CErrDatuHojDoudEuqjSadB1sRaJ
 
+
+Quareal Foundation
+https://quareal.ru/
+Donations are greatly appreciated at : 1FCPZFBurrAFu3Cbm5oRKRovFnumB73wBe 
 
 ---------
 
@@ -16,13 +18,10 @@ Donations are greatly appreciated at : 1E4FU9CErrDatuHojDoudEuqjSadB1sRaJ
 This is a Php class aimed at serving easy to use, out of the box API acces to the Blockchain API's (Both Merchant and public api)
 
 
-
-
-
 ### Ready the class
 ```php
-  require_once( "blockchainPhp.php" );
-  $api = new BlockchainPhp("blockchain-identifier","password");
+  require_once('blockchainPhp.php');
+  $api = new BlockchainPhp('blockchain-identifier','password');
 ```
 **The constructor takes the following arguments**
 
@@ -39,18 +38,18 @@ This is a Php class aimed at serving easy to use, out of the box API acces to th
 ### Getters and setters
 You may set or get the language at any time
 ```php
-    $api->language("ru");
+    $api->language('ru');
     print $api->language();
 ```
 
 You may set the identifier at any time
 ```php
-    $api->identifier("new-identifier");
+    $api->identifier('new-identifier');
 ```
 
 You may set a secondary password at any time, if double-encryption is enabled
 ```php
-    $api->secondPassword("Your second password");
+    $api->secondPassword('Your second password');
 ```
 
 
@@ -78,8 +77,8 @@ https://blockchain.info/da/api/api_receive
 Its now as easy as this, to generate a reciving address
 ```php
     try {
-      $response = $api->generateReceiveToken("1E4FU9CErrDatuHojDoudEuqjSadB1sRaJ","http://callback.url");
-      print "Pay to " . $response->input_address;
+      $response = $api->generateReceiveToken('1E4FU9CErrDatuHojDoudEuqjSadB1sRaJ','http://callback.url');
+      print 'Pay to ' . $response->input_address;
     } catch(Exception $e) {}
 ```
 **The generateReceiveToken method takes the following arguments**
@@ -99,7 +98,7 @@ https://blockchain.info/da/api/blockchain_wallet_api
 You may send a payment using the following method
 ```php
     try {
-      $response = $api->pay("1E4FU9CErrDatuHojDoudEuqjSadB1sRaJ",1.1 );
+      $response = $api->pay('1E4FU9CErrDatuHojDoudEuqjSadB1sRaJ',1.1 );
     } catch(Exception $e) {}
 ```
 **The pay method takes the following arguments**
@@ -150,7 +149,7 @@ https://blockchain.info/da/api/blockchain_wallet_api
 Get the balance of a single address
 ```php
     try {
-      $response = $api->addressBalance("1E4FU9CErrDatuHojDoudEuqjSadB1sRaJ");
+      $response = $api->addressBalance('1E4FU9CErrDatuHojDoudEuqjSadB1sRaJ');
       print $api->satoshiToBTC( $response->balance );
     } catch(Exception $e) {}
 ```
@@ -171,7 +170,7 @@ https://blockchain.info/da/api/blockchain_wallet_api
 Create a new address
 ```php
     try {
-      $response = $api->newAddress("My new address");
+      $response = $api->newAddress('My new address');
     } catch(Exception $e) {}
 ```
 **The newAddress method takes the following argument**
@@ -190,7 +189,7 @@ https://blockchain.info/da/api/blockchain_wallet_api
 Archive an address
 ```php
     try {
-      $response = $api->archiveAddress("1E4FU9CErrDatuHojDoudEuqjSadB1sRaJ");
+      $response = $api->archiveAddress('1E4FU9CErrDatuHojDoudEuqjSadB1sRaJ');
     } catch(Exception $e) {}
 ```
 **The archiveAddress method takes the following argument**
@@ -209,7 +208,7 @@ https://blockchain.info/da/api/blockchain_wallet_api
 Unarchive an address
 ```php
     try {
-      $response = $api->unArchiveAddress("1E4FU9CErrDatuHojDoudEuqjSadB1sRaJ");
+      $response = $api->unArchiveAddress('1E4FU9CErrDatuHojDoudEuqjSadB1sRaJ');
     } catch(Exception $e) {}
 ```
 **The unArchiveAddress method takes the following argument**
@@ -251,8 +250,10 @@ Unarchive an address
 
 **JonasMe**
 
-
-
-
-
 Donations are greatly appreciated at : 1E4FU9CErrDatuHojDoudEuqjSadB1sRaJ
+
+
+**Quareal Foundation**
+https://quareal.ru/
+
+Donations are greatly appreciated at : 1FCPZFBurrAFu3Cbm5oRKRovFnumB73wBe 
