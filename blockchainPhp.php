@@ -1,14 +1,17 @@
 <?php
-
-	/* 
+	/*
 		The MIT License (MIT)
 
 		Copyright (c) 2014 JonasMe
+		Copyright (c) 2016 Quareal Foundation
 
 		JonasMe
 		jonas@mersholm.dk
-
 		Donations are greatly appreciated at : 1E4FU9CErrDatuHojDoudEuqjSadB1sRaJ
+
+		Quareal Foundation
+		https://quareal.ru/
+		Donations are greatly appreciated at : 1FCPZFBurrAFu3Cbm5oRKRovFnumB73wBe 
 
 		Permission is hereby granted, free of charge, to any person obtaining a copy
 		of this software and associated documentation files (the "Software"), to deal
@@ -29,7 +32,7 @@
 		SOFTWARE.
 	*/
 
-	class BlockchainPhp {
+	class BlockchainAPI {
 
 		private $identifier;
 		private $mainPassword;
@@ -43,9 +46,9 @@
 				$this->identifier  		= $identifier;
 				$this->mainPassword 	= $mainPassword;
 				$this->secondPassword 	= $secondPassword;
-				$this->merchantUrl		= "https://blockchain.info/%s/merchant/%s/";
-				$this->apiUrl			= "https://blockchain.info/da/api/";
-				$this->language 		= "en";
+				$this->merchantUrl		= 'https://blockchain.info/%s/merchant/%s/';
+				$this->apiUrl			= 'https://blockchain.info/da/api/';
+				$this->language 		= 'ru'; #en
  		}
 
  		//Public API functionality
@@ -57,11 +60,11 @@
  		 */
  		public function generateReceiveToken($address, $callback) {
  			$extras = array(
- 				"method" => "create",
- 				"address" => $address,
- 				"callback" => $callback,
+ 				'method' => 'create',
+ 				'address' => $address,
+ 				'callback' => $callback,
  			);
- 			return $this->apiCall("receive",$extras);
+ 			return $this->apiCall('receive',$extras);
  		}
 
  		//Merchant API functionality
@@ -75,15 +78,19 @@
  		 */
  		public function pay($recipient, $amount, $extras = array() ) {
  			if( !is_null($this->mainPassword) ) {
- 				
- 					$extras["password"] = $this->mainPassword;
- 					$extras["to"]		= $recipient;
- 					$extras["amount"]	= $this->BTCToSatoshi( $amount );
 
- 					if( !is_null($this->secondPassword)) { $extras["second_password"] = $this->secondPassword; }
- 					return $this->merchantApiCall("payment",$extras);
+ 					$extras['password'] = $this->mainPassword;
+ 					$extras['to']		= $recipient;
+ 					$extras['amount']	= $this->BTCToSatoshi( $amount );
+
+ 					if( !is_null($this->secondPassword)) { $extras['second_password'] = $this->secondPassword; }
+ 					return $this->merchantApiCall('payment',$extras);
  			} else {
- 				throw new Exception("To use the 'pay' api method, you must specify a main password");
+				if($this->language == 'ru'){
+					throw new Exception('Для использования метода API \'pay\', необходимо указать главный пароль');
+				}else{
+					throw new Exception('To use the \'pay\' api method, you must specify a main password');
+				}
  			}
  		}
 
@@ -93,10 +100,14 @@
  		 */
  		public function balance() {
  			if( !is_null($this->mainPassword) ) {
- 				$extras = array( "password" => $this->mainPassword );
- 				return $this->merchantApiCall("balance",$extras);
+ 				$extras = array( 'password' => $this->mainPassword );
+ 				return $this->merchantApiCall('balance',$extras);
 			} else {
- 				throw new Exception("To use the 'balance' api method, you must specify a main password");
+ 				if($this->language == 'ru'){
+					throw new Exception('Для использования метода API \'balance\', необходимо указать главный пароль');
+				}else{
+					throw new Exception('To use the \'balance\' api method, you must specify a main password');
+				}
  			}
  		}
 
@@ -106,10 +117,14 @@
  		 */
  		public function addresses() {
  			if( !is_null($this->mainPassword) ) {
- 				$extras = array( "password" => $this->mainPassword );
- 				return $this->merchantApiCall("list",$extras);
+ 				$extras = array( 'password' => $this->mainPassword );
+ 				return $this->merchantApiCall('list',$extras);
 			} else {
- 				throw new Exception("To use the 'addresses' api method, you must specify a main password");
+ 				if($this->language == 'ru'){
+					throw new Exception('Для использования метода API \'addresses\', необходимо указать главный пароль');
+				}else{
+					throw new Exception('To use the \'addresses\' api method, you must specify a main password');
+				}
  			}
  		}
 
@@ -121,14 +136,18 @@
  		 */
  		public function addressBalance($address, $confirmations = null) {
  			if( !is_null($this->mainPassword) ) {
- 				
- 				$extras = array( "password" => $this->mainPassword, "address" =>  $address );
- 				if( !is_null($confirmations)) { $extras["confirmations"] = $confirmations; }
 
- 				return $this->merchantApiCall("address_balance",$extras);
-			
+ 				$extras = array( 'password' => $this->mainPassword, 'address' =>  $address );
+ 				if( !is_null($confirmations)) { $extras['confirmations'] = $confirmations; }
+
+ 				return $this->merchantApiCall('address_balance',$extras);
+
 			} else {
- 				throw new Exception("To use the 'addressBalance' api method, you must specify a main password");
+ 				if($this->language == 'ru'){
+					throw new Exception('Для использования метода API \'addressBalance\', необходимо указать главный пароль');
+				}else{
+					throw new Exception('To use the \'addressBalance\' api method, you must specify a main password');
+				}
  			}
  		}
 
@@ -139,15 +158,19 @@
  		 */
  		public function newAddress($label = null) {
  			if( !is_null($this->mainPassword) ) {
- 				
- 				$extras = array( "password" => $this->mainPassword );
- 				if( !is_null($label)) { $extras["label"] = $label; }
- 				if( !is_null($this->secondPassword)) { $extras["second_password"] = $this->secondPassword; }
 
- 				return $this->merchantApiCall("new_address",$extras);
-			
+ 				$extras = array( 'password' => $this->mainPassword );
+ 				if( !is_null($label)) { $extras['label'] = $label; }
+ 				if( !is_null($this->secondPassword)) { $extras['second_password'] = $this->secondPassword; }
+
+ 				return $this->merchantApiCall('new_address',$extras);
+
 			} else {
- 				throw new Exception("To use the 'newAddress' api method, you must specify a main password");
+ 				if($this->language == 'ru'){
+					throw new Exception('Для использования метода API \'newAddress\', необходимо указать главный пароль');
+				}else{
+					throw new Exception('To use the \'newAddress\' api method, you must specify a main password');
+				}
  			}
  		}
 
@@ -158,14 +181,18 @@
  		 */
  		public function archiveAddress($address) {
  			if( !is_null($this->mainPassword) ) {
- 				
- 				$extras = array( "password" => $this->mainPassword, "address" =>  $address );
- 				if( !is_null($this->secondPassword)) { $extras["second_password"] = $this->secondPassword; }
 
- 				return $this->merchantApiCall("archive_address",$extras);
-			
+ 				$extras = array( 'password' => $this->mainPassword, 'address' =>  $address );
+ 				if( !is_null($this->secondPassword)) { $extras['second_password'] = $this->secondPassword; }
+
+ 				return $this->merchantApiCall('archive_address',$extras);
+
 			} else {
- 				throw new Exception("To use the 'archiveAddress' api method, you must specify a main password");
+ 				if($this->language == 'ru'){
+					throw new Exception('Для использования метода API \'archiveAddress\', необходимо указать главный пароль');
+				}else{
+					throw new Exception('To use the \'archiveAddress\' api method, you must specify a main password');
+				}
  			}
  		}
 
@@ -176,14 +203,18 @@
  		 */
  		public function unArchiveAddress($address) {
  			if( !is_null($this->mainPassword) ) {
- 				
- 				$extras = array( "password" => $this->mainPassword, "address" =>  $address );
- 				if( !is_null($this->secondPassword)) { $extras["second_password"] = $this->secondPassword; }
 
- 				return $this->merchantApiCall("unarchive_address",$extras);
-			
+ 				$extras = array( 'password' => $this->mainPassword, 'address' =>  $address );
+ 				if( !is_null($this->secondPassword)) { $extras['second_password'] = $this->secondPassword; }
+
+ 				return $this->merchantApiCall('unarchive_address',$extras);
+
 			} else {
- 				throw new Exception("To use the 'unArchiveAddress' api method, you must specify a main password");
+ 				if($this->language == 'ru'){
+					throw new Exception('Для использования метода API \'unArchiveAddress\', необходимо указать главный пароль');
+				}else{
+					throw new Exception('To use the \'unArchiveAddress\' api method, you must specify a main password');
+				}
  			}
  		}
 
@@ -194,16 +225,21 @@
  		 */
  		public function consolidateAddresses($days) {
  			if( !is_null($this->mainPassword) ) {
- 				
- 				$extras = array( "password" => $this->mainPassword, "days" =>  $days );
- 				if( !is_null($this->secondPassword)) { $extras["second_password"] = $this->secondPassword; }
 
- 				return $this->merchantApiCall("auto_consolidate",$extras);
-			
+ 				$extras = array( 'password' => $this->mainPassword, 'days' =>  $days );
+ 				if( !is_null($this->secondPassword)) { $extras['second_password'] = $this->secondPassword; }
+
+ 				return $this->merchantApiCall('auto_consolidate',$extras);
+
 			} else {
- 				throw new Exception("To use the 'consolidateAddresses' api method, you must specify a main password");
+ 				if($this->language == 'ru'){
+					throw new Exception('Для использования метода API \'consolidateAddresses\', необходимо указать главный пароль');
+				}else{
+					throw new Exception('To use the \'consolidateAddresses\' api method, you must specify a main password');
+				}
  			}
  		}
+
  		//URL methods
  		/**
  		 * Generate last steps of the url for the merchant API
@@ -217,8 +253,11 @@
  			if( is_object($return) ) {
  				return $return;
  			}
-
- 			throw new Exception("Something went wrong.");
+ 			if($this->language == 'ru'){
+				throw new Exception('Что-то пошло не так.');
+			}else{
+				throw new Exception('Something went wrong.');
+			}
  		}
 
  		/**
@@ -233,8 +272,11 @@
  			if( is_object($return) ) {
  				return $return;
  			}
-
- 			throw new Exception("Something went wrong.");
+ 			if($this->language == 'ru'){
+				throw new Exception('Что-то пошло не так.');
+			}else{
+				throw new Exception('Something went wrong.');
+			}
  		}
 
  		/**
@@ -267,8 +309,8 @@
  		 * @return class           Returns the class
  		 */
  		public function identifier($identifier) {
- 				$this->identifier = $identifier;
- 				return $this;
+ 			$this->identifier = $identifier;
+ 			return $this;
  		}
 
  		/**
@@ -281,7 +323,6 @@
  			return $this;
  		}
 
-
  		//*Converts*/
  		/**
  		 * Converts satoshi values to BTC currency.
@@ -292,7 +333,11 @@
  			if( is_numeric($satoshi) ) {
  				return ( $satoshi/100000000 );
  			} else {
- 				throw new Exception("The main satoshi amount to convert must be numeric.");
+ 				if($this->language == 'ru'){
+					throw new Exception('Основное количество Satoshi для преобразования должен быть числовым.');
+				}else{
+					throw new Exception('The main satoshi amount to convert must be numeric.');
+				}
  			}
  		}
 
@@ -305,8 +350,11 @@
  			if( is_numeric($BTC) ) {
  				return ( $BTC*100000000 );
  			} else {
- 				throw new Exception("The main BTC amount to convert must be numeric.");
+ 				if($this->language == 'ru'){
+					throw new Exception('Основное количество BTC для преобразования должен быть числовым.');
+				}else{
+					throw new Exception('The main BTC amount to convert must be numeric.');
+				}
  			}
  		}
 	}
-
