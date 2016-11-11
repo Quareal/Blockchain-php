@@ -1,12 +1,16 @@
 Blockchain-php
 ==============
 JonasMe
+
 jonas@mersholm.dk
+
 Donations are greatly appreciated at : 1E4FU9CErrDatuHojDoudEuqjSadB1sRaJ
 
 
 Quareal Foundation
+
 https://quareal.ru/
+
 Donations are greatly appreciated at : 1FCPZFBurrAFu3Cbm5oRKRovFnumB73wBe 
 
 ---------
@@ -252,8 +256,10 @@ Unarchive an address
 
 Donations are greatly appreciated at : 1E4FU9CErrDatuHojDoudEuqjSadB1sRaJ
 
+----
 
 **Quareal Foundation**
+
 https://quareal.ru/
 
 Donations are greatly appreciated at : 1FCPZFBurrAFu3Cbm5oRKRovFnumB73wBe 
